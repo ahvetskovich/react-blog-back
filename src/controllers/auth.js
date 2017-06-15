@@ -19,7 +19,6 @@ passport.use(new LocalStrategy(
   (login, password, callback) => {
     db.user.getUserByLogin(login)
       .then(function (user) {
-        // No user found with that login
         if (!user) {
           return callback(null, false);
         }
@@ -28,13 +27,9 @@ passport.use(new LocalStrategy(
           if (err) {
             return callback(err);
           }
-
-          // Password did not match
           if (!isMatch) {
             return callback(null, false);
           }
-
-          // Success
           return callback(null, user);
         });
       })
@@ -82,7 +77,6 @@ module.exports.passport = passport;
 module.exports.loginUser = passport.authenticate('local', {session: false});
 module.exports.isAuth = passport.authenticate('bearer', {session: false});
 
-
 module.exports.generateToken = (req, res, next) => {
   let userId = req.user.id;
   const token = jwt.sign({id: userId}, secret);
@@ -106,7 +100,6 @@ module.exports.generateToken = (req, res, next) => {
       }
     });
 };
-
 
 module.exports.logout = (req, res, next) => {
   const token = req.header('Authorization').replace('Bearer ', '');

@@ -13,7 +13,6 @@ module.exports.getUserById = (userId) => (
 module.exports.createUser = (login, password, name, avatar) => {
   return db.user.getUserByLogin(login)
     .then(user => {
-      //Check user unique
       if (user) {
         throw new ServiceException(`User with login ${login} already exists`);
       }
