@@ -1,11 +1,10 @@
 const db = require('../db');
 
-function getPostStream(limit, offset) {
+const getPostStream = (limit, offset) => {
   return db.postStream.getPostStream(limit, offset)
-    .then(function (data) {
-      const posts = data.map(post => {
-        const {user_id, avatar, name, ...result} = post;
-        return {
+    .then(data =>
+      Promise.resolve(data.map(({user_id, avatar, name, ...result}) => (
+        {
           ...result,
           author: {
             avatar: avatar,
@@ -13,21 +12,17 @@ function getPostStream(limit, offset) {
             id: user_id
           }
         }
-      });
-      return posts;
-    })
-    .catch(function (err) {
-      return next(err);
-    });
-}
+      )))
+    )
+};
 
-function getPostPage(postId) {
+const getPostPage = postId => {
   const promises = [
     db.postPage.getPost(postId),
     db.postPage.getPostComments(postId)
   ];
   return Promise.all(promises)
-    .then(function (rawPostWithComments) {
+    .then(rawPostWithComments => {
       const {user_id, avatar, name, ...result} = rawPostWithComments[0];
       const post = {
         ...result,
@@ -55,10 +50,7 @@ function getPostPage(postId) {
         comments: comments || []
       };
     })
-    .catch(function (err) {
-      return next(err);
-    });
-}
+};
 
 module.exports = {
   getPostStream,

@@ -8,7 +8,8 @@ const promise = require('bluebird');
 // because event 'extend' is called multiple times:
 const repos = {
   postPage: require('./repositories/postPage'),
-  postStream: require('./repositories/postStream')
+  postStream: require('./repositories/postStream'),
+  user: require('./repositories/user')
 };
 
 // pg-promise initialization options:
@@ -26,6 +27,7 @@ const options = {
     // and transaction being executed, which should be as fast as possible.
     obj.postPage = new repos.postPage(obj, pgp);
     obj.postStream = new repos.postStream(obj, pgp);
+    obj.user = new repos.user(obj, pgp);
 
     // Alternatively, you can set all repositories in a loop:
     //

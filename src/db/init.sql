@@ -5,15 +5,17 @@ CREATE DATABASE react_blog;
 
 CREATE TABLE "user" (
   id SERIAL PRIMARY KEY,
+  login text,
+  password text,
   name text,
   avatar text
 );
+create unique index idx_name on "user" (login);
 
-CREATE TABLE "user_auth" (
+CREATE TABLE "user_token" (
   id SERIAL PRIMARY KEY,
   user_id int REFERENCES "user" (id),
-  login text,
-  password text
+  token text
 );
 
 CREATE TABLE post (
@@ -52,7 +54,7 @@ CREATE TABLE comment_like (
   FOREIGN KEY (user_id) REFERENCES "user" (id)
 );
 
-INSERT INTO "user" (id, name, avatar) VALUES (1, 'Bogan Shanna', 'http://lorempixel.com/640/480');
+INSERT INTO "user" (id, login, password, name, avatar) VALUES (1, 'test_user@gmail.com', '$2a$10$IiUZZdfcMItlw4gVTXJIjuO3gM8Do7uGF7KZztY7w25XqwvnbkDAu', 'test user', 'http://lorempixel.com/640/480');
 INSERT INTO post (id, user_id, title, content, created, updated, likes) VALUES (1, 1, 'asperiores consequuntur corrupti', 'Dolor et et perferendis. Cumque aliquid commodi minus. Enim nesciunt dolorem quidem consequuntur et. Et tempore nisi aliquam sed id dolores porro fuga corrupti.', '2016-08-10 04:58:29.733', '2017-04-29 14:20:02.913', 0);
 INSERT INTO comment (id, post_id, user_id, content, created, updated, likes) VALUES (1, 1, 1, 'aut saepe quis', '2017-02-06T19:53:07.212Z', '2017-02-06T19:55:07.212Z', 0);
 INSERT INTO comment (id, post_id, user_id, content, created, updated, likes) VALUES (2, 1, 1, 'ut nesciunt sed', '2017-02-07T19:53:07.212Z', '2017-02-07T19:58:07.212Z', 0);

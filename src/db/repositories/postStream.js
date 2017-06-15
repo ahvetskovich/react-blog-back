@@ -7,7 +7,7 @@ class PostStream {
   }
 
   getPostStream(limit, offset) {
-    return this.db.any(sql.getPostStreamQuery(limit, offset));
+    return this.db.any(sql.getPostStream(limit, offset));
   }
 }
 

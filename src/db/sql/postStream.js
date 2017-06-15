@@ -1,4 +1,4 @@
-const getPostStreamQuery = (limit, offset) => (
+const getPostStream = (limit, offset) => (
     'select ' +
       '"user".name, "user".avatar, ' +
       'post.id, post.user_id, post.title, post.content, post.created, post.updated, post.likes ' +
@@ -8,4 +8,4 @@ const getPostStreamQuery = (limit, offset) => (
     `limit ${limit} offset ${offset}`
 );
 
-module.exports = {getPostStreamQuery};
+module.exports = {getPostStream};
