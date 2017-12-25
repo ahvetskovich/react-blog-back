@@ -3,7 +3,7 @@ const db = require('../db');
 const getPostStream = (limit, offset) => {
   return db.postStream.getPostStream(limit, offset)
     .then(data =>
-      Promise.resolve(data.map(({user_id, avatar, name, ...result}) => (
+      data.map(({user_id, avatar, name, ...result}) => (
         {
           ...result,
           author: {
@@ -12,8 +12,8 @@ const getPostStream = (limit, offset) => {
             id: user_id
           }
         }
-      )))
-    )
+      ))
+    );
 };
 
 const getPostPage = postId => {

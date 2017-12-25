@@ -18,7 +18,7 @@ passport.use(new LocalStrategy(
   },
   (login, password, callback) => {
     db.user.getUserByLogin(login)
-      .then(function (user) {
+      .then((user) => {
         if (!user) {
           return callback(null, false);
         }
@@ -33,11 +33,7 @@ passport.use(new LocalStrategy(
           return callback(null, user);
         });
       })
-      .catch(function (err) {
-        if (err) {
-          return callback(err);
-        }
-      });
+      .catch((err) => callback(err));
   })
 );
 
@@ -64,7 +60,7 @@ passport.serializeUser((user, cb) => {
 
 passport.deserializeUser((id, cb) => {
   db.user.getUserById(userId)
-    .then(function (user) {
+    .then((user) => {
       if (user) {
         return cb(null, user);
       }
@@ -81,7 +77,7 @@ module.exports.generateToken = (req, res, next) => {
   let userId = req.user.id;
   const token = jwt.sign({id: userId}, secret);
   db.user.getUserById(userId)
-    .then(function (user) {
+    .then((user) => {
       if (user) {
         return db.user.addToken(token, userId)
       }
@@ -94,11 +90,7 @@ module.exports.generateToken = (req, res, next) => {
         user: req.user
       }));
     })
-    .catch(function (err) {
-      if (err) {
-        return next(err);
-      }
-    });
+    .catch((err) => next(err));
 };
 
 module.exports.logout = (req, res, next) => {
@@ -108,9 +100,5 @@ module.exports.logout = (req, res, next) => {
       res.header('Authorization', '');
       res.json(presenter.success(null));
     })
-    .catch(function (err) {
-      if (err) {
-        return next(err);
-      }
-    });
+    .catch((err) => next(err));
 };

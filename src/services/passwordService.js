@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 
-const verifyPassword = function (data, hash, callback) {
+const verifyPassword = (data, hash, callback) => {
   bcrypt.compare(data, hash, (err, isMatch) => {
     if (err) {
       return callback(err);

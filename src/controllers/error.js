@@ -2,7 +2,6 @@
 
 const presenter   = require('../presenters/responsePresenter');
 
-
 //Passport has not authorized handler
 module.exports.unauthHandler = (err, req, res, next) => {
   if (err.name === 'Unauthorized') {

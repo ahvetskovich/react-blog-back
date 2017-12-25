@@ -1,7 +1,5 @@
 'use strict';
 
-
-const bcrypt = require('bcrypt');
 const db = require('../db');
 const passwordService = require('/passwordService');
 const ServiceException = require('./serviceError');

@@ -22,7 +22,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // for CORS
-app.all('*', function (req, res, next) {
+app.all('*', (req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Content-Type');
@@ -30,7 +30,7 @@ app.all('*', function (req, res, next) {
 });
 
 app.use('/', authRouter);
-app.use('/api', postRouter);
+app.use('/', postRouter);
 
 app.use('*', errorHandlers.notFoundHandler);
 app.use(errorHandlers.unauthHandler);

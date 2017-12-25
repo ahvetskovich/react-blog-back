@@ -1,12 +1,21 @@
-# Designing a RESTful API With Node and Postgres
+## Description
+API to get news feeds, specific post pages and comments.
 
-## Want to learn how to build this project?
-
-Check out the [blog post](http://mherman.org/blog/2016/03/13/designing-a-restful-api-with-node-and-postgres/#.WJNOqLYrJE4).
-
-## Want to use this project?
-
-1. Fork/Clone
+## Launch
 1. Install dependencies - `npm install`
-1. Run - `psql -U postgres -f puppies.sql`
-1. Run the development server - `npm start`
+2. Run - `psql -U postgres -f init.sql`
+3. Run the development server - `npm start`
+
+# API
+1. Login as test user.
+Endpoint `POST /login` with following json
+```
+{
+	"login": "test_user@gmail.com",
+	"password": "test_user"
+}
+```
+2. Get post stream `GET /postStream`
+3. To access endpoints with auth - Use `token` from `POST /login` endpoint and pass it to `Authorization` header as
+ `Bearer token`
+ Required auth endpoints: `GET /postPage/${postId}`
