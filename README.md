@@ -1,9 +1,9 @@
 ## Description
-API to get news feeds, specific post pages and comments.
+API to get news feeds, specific post pages with comments.
 
 ## Launch
 1. Install dependencies - `npm install`
-2. Run - `psql -U postgres -f init.sql`
+2. Run - `psql -U postgres -f src/db/init.sql`
 3. Run the development server - `npm start`
 
 # API
@@ -17,5 +17,5 @@ Endpoint `POST /login` with following json
 ```
 2. Get post stream `GET /postStream`
 3. To access endpoints with auth - Use `token` from `POST /login` endpoint and pass it to `Authorization` header as
- `Bearer token`
- Required auth endpoints: `GET /postPage/${postId}`
+ `Bearer token`  
+ Endpoints requiring auth: `GET /postPage/${postId}`
